@@ -19,6 +19,7 @@ fin = v1+v2+v3+v4
 
 %% Forward Kinematics of the 7-DOF Barrett WAM arm.
 init = [v1'; 1]; % 1 in the 4th row because translations matter for the physical location of the translated point.
+init = [0;0;0;1];
 pos = zeros(length(JointData), 3);
 for i = 1:length(JointData)
     % Save all joint angles at current step into a column vector.
@@ -45,7 +46,7 @@ for i = 1:length(JointData)
     
     % J4 to J5. -t4 about +x axis. 0 translation.
     H4 = [1, 0, 0, 0;
-        0 cos(-J(4)) -sin(-J(4)) 0;
+        0 cos(-J(4)) -sin(-J(4)) -45e-3;
         0 sin(-J(4)) cos(-J(4)) 0;
         0, 0, 0, 1];
     
@@ -75,4 +76,6 @@ for i = 1:length(JointData)
     
 end
 
-scatter3(pos(:, 1), pos(:, 2), pos(:,3));
+
+
+plot3(pos(:, 1), pos(:, 2), pos(:,3));
